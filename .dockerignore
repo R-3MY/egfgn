@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# Allow essential build files
+!bin/
+!lib/
+!pubspec.yaml
+!pubspec.lock
+
