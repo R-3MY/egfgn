@@ -101,6 +101,7 @@ Si vous souhaitez modifier le code ou le lancer localement :
 | Variable | Description | Par défaut |
 | :--- | :--- | :--- |
 | `WEBHOOK_URL` | URL du Webhook Discord (Requis) | - |
+| `ROLE_ID` | ID du rôle Discord à ping (optionnel) | - |
 | `COUNTRY_CODE` | Code pays pour les offres (ex: FR, US) | `FR` |
 | `CHECK_INTERVAL` | Intervalle de vérification en heures | `24` |
 
@@ -117,6 +118,7 @@ Les contributions sont les bienvenues ! Veuillez lire le fichier [CONTRIBUTING.m
 ## 📅 Roadmap / TODO
 
 - [x] **CI/CD** : Tests automatisés et publication Docker via GitHub Actions.
+- [x] **Role Ping** : Permet de ping un role.
 - [ ] **Better Logging** : Passer de `print` au package `logging` pour plus de détails (timestamps, niveaux).
 - [ ] **Webhook Regex Check** : Ajouter une validation robuste de l'URL du Webhook Discord au démarrage.
 - [ ] **Multi-Channel** : Support pour envoyer les notifications sur plusieurs webhooks simultanément.

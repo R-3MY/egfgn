@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+### Added
+- Custom discord role ping (via .env ROLE_ID)
+
 ## 1.1.0
 
 ### Added
