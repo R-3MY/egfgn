@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+- Added image description label to Dockerfile for better container registry visibility.
+
 ## 1.0.0
 
 ### Added
