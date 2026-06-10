@@ -43,8 +43,9 @@ class DiscordService {
       'inline': false,
     });
 
-    final String? content =
-        roleId != null && roleId!.isNotEmpty ? '<@&$roleId>' : null;
+    final String? content = roleId != null && roleId!.isNotEmpty
+        ? '<@&$roleId>'
+        : null;
 
     final payload = jsonEncode({
       'username': 'Epic Games Notifier',

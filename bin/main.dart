@@ -29,7 +29,8 @@ final int checkIntervalHours =
 
 final Duration interval = Duration(hours: checkIntervalHours);
 
-final int? roleId = int.tryParse(env['ROLE_ID'] ?? '') ??
+final int? roleId =
+    int.tryParse(env['ROLE_ID'] ?? '') ??
     int.tryParse(const String.fromEnvironment('ROLE_ID'));
 
 //* MAIN FUNCTION
