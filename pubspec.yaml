@@ -1,6 +1,6 @@
 name: egfgn
 description: EpicGames Free Game Notifier. A modular Dart CLI to notify Discord channels about free games.
-version: 1.1.0
+version: 1.2.0
 homepage: https://github.com/R-3MY/EGFGN
 repository: https://github.com/R-3MY/EGFGN
 

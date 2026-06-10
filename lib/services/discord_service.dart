@@ -3,9 +3,10 @@ import 'package:http/http.dart' as http;
 import '../models/epic_game.dart';
 
 class DiscordService {
-  DiscordService({required this.webhookUrl});
+  DiscordService({required this.webhookUrl, this.roleId});
 
   final String webhookUrl;
+  final String? roleId;
 
   Future<void> notifyGame(final EpicGame game) async {
     final bool isCurrent = game.isCurrentlyFree;
@@ -42,8 +43,12 @@ class DiscordService {
       'inline': false,
     });
 
+    final String? content =
+        roleId != null && roleId!.isNotEmpty ? '<@&$roleId>' : null;
+
     final payload = jsonEncode({
       'username': 'Epic Games Notifier',
+      'content': ?content,
       'embeds': [
         {
           'title': '$statusLabel : ${game.title}',

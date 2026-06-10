@@ -29,6 +29,9 @@ final int checkIntervalHours =
 
 final Duration interval = Duration(hours: checkIntervalHours);
 
+final int? roleId = int.tryParse(env['ROLE_ID'] ?? '') ??
+    int.tryParse(const String.fromEnvironment('ROLE_ID'));
+
 //* MAIN FUNCTION
 Future<void> main() async {
   if (webhookUrl.isEmpty) {
@@ -41,7 +44,10 @@ Future<void> main() async {
   print('Intervalle : $checkIntervalHours heures');
 
   final epicService = EpicService(countryCode: countryCode);
-  final discordService = DiscordService(webhookUrl: webhookUrl);
+  final discordService = DiscordService(
+    webhookUrl: webhookUrl,
+    roleId: roleId?.toString(),
+  );
   final storageService = StorageService();
 
   while (true) {
