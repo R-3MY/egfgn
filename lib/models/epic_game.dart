@@ -5,6 +5,7 @@ class EpicGame {
     required this.description,
     this.productSlug,
     this.urlSlug,
+    this.mappingSlug,
     required this.originalPrice,
     required this.discountPrice,
     required this.isCurrentlyFree,
@@ -20,6 +21,27 @@ class EpicGame {
     final description = json['description'] as String;
     final productSlug = json['productSlug'] as String?;
     final urlSlug = json['urlSlug'] as String?;
+
+    final mappings = json['catalogNs']?['mappings'] as List<dynamic>?;
+    final offerMappings = json['offerMappings'] as List<dynamic>?;
+
+    String? findProductHomeSlug(final List<dynamic>? list) {
+      if (list == null) return null;
+      for (final m in list) {
+        if (m is Map && m['pageType'] == 'productHome') {
+          return m['pageSlug'] as String?;
+        }
+      }
+      for (final m in list) {
+        if (m is Map && m['pageSlug'] != null) {
+          return m['pageSlug'] as String?;
+        }
+      }
+      return null;
+    }
+
+    final mappingSlug =
+        findProductHomeSlug(mappings) ?? findProductHomeSlug(offerMappings);
 
     final price = json['price']?['totalPrice'] as Map<String, dynamic>?;
     final originalPrice = price?['originalPrice'] as int? ?? 0;
@@ -110,6 +132,7 @@ class EpicGame {
       description: description,
       productSlug: productSlug,
       urlSlug: urlSlug,
+      mappingSlug: mappingSlug,
       originalPrice: originalPrice,
       discountPrice: discountPrice,
       isCurrentlyFree: isCurrentlyFree,
@@ -125,6 +148,7 @@ class EpicGame {
   final String description;
   final String? productSlug;
   final String? urlSlug;
+  final String? mappingSlug;
   final int originalPrice;
   final int discountPrice;
   final bool isCurrentlyFree;
@@ -134,9 +158,12 @@ class EpicGame {
   final DateTime? endDate;
 
   String get epicUrl {
-    final slug = productSlug ?? urlSlug;
+    final slug = mappingSlug ?? productSlug ?? urlSlug;
     if (slug == null) return 'https://store.epicgames.com/fr/';
-    return 'https://store.epicgames.com/fr/p/$slug';
+    final cleanSlug = slug.endsWith('/home')
+        ? slug.substring(0, slug.length - 5)
+        : slug;
+    return 'https://store.epicgames.com/fr/p/$cleanSlug';
   }
 
   @override
