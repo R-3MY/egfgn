@@ -6,13 +6,30 @@ import 'package:test/test.dart';
 
 void main() {
   group('EpicGame Model', () {
-    test('epicUrl should prefer productSlug', () {
+    test('epicUrl should prefer mappingSlug', () {
       final game = EpicGame(
         id: '1',
         title: 'Test',
         description: 'Desc',
         productSlug: 'prod-slug',
         urlSlug: 'url-slug',
+        mappingSlug: 'map-slug',
+        originalPrice: 100,
+        discountPrice: 0,
+        isCurrentlyFree: true,
+        isUpcomingFree: false,
+      );
+      expect(game.epicUrl, contains('/p/map-slug'));
+    });
+
+    test('epicUrl should prefer productSlug if mappingSlug is null', () {
+      final game = EpicGame(
+        id: '1',
+        title: 'Test',
+        description: 'Desc',
+        productSlug: 'prod-slug',
+        urlSlug: 'url-slug',
+        mappingSlug: null,
         originalPrice: 100,
         discountPrice: 0,
         isCurrentlyFree: true,
@@ -21,19 +38,36 @@ void main() {
       expect(game.epicUrl, contains('/p/prod-slug'));
     });
 
-    test('epicUrl should fallback to urlSlug', () {
+    test('epicUrl should fallback to urlSlug if others are null', () {
       final game = EpicGame(
         id: '1',
         title: 'Test',
         description: 'Desc',
         productSlug: null,
         urlSlug: 'url-slug',
+        mappingSlug: null,
         originalPrice: 100,
         discountPrice: 0,
         isCurrentlyFree: true,
         isUpcomingFree: false,
       );
       expect(game.epicUrl, contains('/p/url-slug'));
+    });
+
+    test('epicUrl should strip trailing /home', () {
+      final game = EpicGame(
+        id: '1',
+        title: 'Test',
+        description: 'Desc',
+        productSlug: 'prod-slug/home',
+        urlSlug: 'url-slug',
+        mappingSlug: null,
+        originalPrice: 100,
+        discountPrice: 0,
+        isCurrentlyFree: true,
+        isUpcomingFree: false,
+      );
+      expect(game.epicUrl, contains('/p/prod-slug'));
     });
 
     test('epicUrl should return default store URL if slugs are null', () {
@@ -43,6 +77,7 @@ void main() {
         description: 'Desc',
         productSlug: null,
         urlSlug: null,
+        mappingSlug: null,
         originalPrice: 100,
         discountPrice: 0,
         isCurrentlyFree: true,

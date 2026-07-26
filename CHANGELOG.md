@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.0
+- Fix EpicGames game url
+
 ## 1.2.0
 
 ### Added
