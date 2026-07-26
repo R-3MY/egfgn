@@ -11,7 +11,9 @@ void main() {
     print('${games.length} jeux trouvés (Actuels + À venir).');
 
     for (final game in games) {
-      print('- [${game.isCurrentlyFree ? "ACTUEL" : "À VENIR"}] ${game.title}');
+      print(
+        '- [${game.isCurrentlyFree ? "ACTUEL" : "À VENIR"}] ${game.title} : ${game.epicUrl}',
+      );
 
       expect(game.id, isNotEmpty);
       expect(game.title, isNotEmpty);
